@@ -2,20 +2,22 @@
 name = "stellaroid"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.81.0"
 
 [lib]
 crate-type = ["cdylib"]
+path = "src/lib.rs"
 
 [dependencies]
-soroban-sdk = "25.3.0"
+# We use = to LOCK these versions. This stops Cargo from 
+# automatically downloading the 'Edition 2024' updates.
+soroban-sdk = "=25.3.0"
+base64ct = "=1.7.3"
+const-oid = "=0.9.6"
+der = "=0.7.9"
 
 [dev-dependencies]
-soroban-sdk = { version = "25.3.0", features = ["testutils"] }
-
-# --- ADD THIS TO FIX THE ARBITRARY ERROR ---
-[patch.crates-io]
-arbitrary = { git = "https://github.com/rust-fuzz/arbitrary", tag = "v1.3.2" }
-derive_arbitrary = { git = "https://github.com/rust-fuzz/arbitrary", tag = "v1.3.2" }
+soroban-sdk = { version = "=25.3.0", features = ["testutils"] }
 
 [profile.release]
 opt-level = "z"
